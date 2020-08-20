@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/future4code/mello-cookenu1#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.0",
     "jsonwebtoken": "^8.5.1",
@@ -29,6 +31,7 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.0",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/knex": "^0.16.1",
