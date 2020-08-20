@@ -7,6 +7,7 @@ import getProfile from "./endpoints/GetProfile";
 import getUser from "./endpoints/GetUser";
 import createRecipe from "./endpoints/CreateRecipe";
 import getRecipe from "./endpoints/GetRecipe";
+import follow from "./endpoints/Follow";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ const server = app.listen(process.env.PORT || 3000, () => {
 app.post('/signup', signUp);
 app.post('/signin', signIn);
 app.get('/user/profile', getProfile);
+app.post('/user/follow', follow);
 app.get('/user/:id', getUser);
 app.post('/recipe', createRecipe);
 app.get('/recipe/:id', getRecipe);
