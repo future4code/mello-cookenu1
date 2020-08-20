@@ -34,7 +34,7 @@ export class UserDatabase extends BaseDB {
 
   public async getUserById(id: string): Promise<any> {
     const result = await this.getConnection()
-      .select("*")
+      .select("id", "name", "email") //Ñ DEVE RETORNAR A SENHA
       .from(UserDatabase.TABLE_NAME)
       .where({ id });
 
