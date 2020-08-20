@@ -23,6 +23,15 @@ export class RecipeDatabase extends BaseDB {
     await BaseDB.destroyConnection()
   }
 
+  public async getRecipeById(id: string): Promise<any> {
+    const result = await this.getConnection()
+      .select("id", "title", "description", "createAt")
+      .from(RecipeDatabase.TABLE_NAME)
+      .where({ id });
+
+    return result;
+  }
+
   public async getFeedRecipe(id: string): Promise<any> {
     const result = await this.getConnection().raw(`
       SELECT 

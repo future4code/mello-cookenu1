@@ -24,4 +24,17 @@ export class FollowersDatabase extends BaseDB {
         return error.message;
       }
   }
+
+  public async unfollow(id: string): Promise<void> {
+    try {
+      await this.getConnection().raw(`
+        DELETE FROM ${FollowersDatabase.TABLE_NAME} 
+        WHERE idFollower = ${id};
+      `)
+      
+      await BaseDB.destroyConnection()
+    } catch (error) {
+      return error.message
+    }
+  }
 }
