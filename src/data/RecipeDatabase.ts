@@ -34,18 +34,19 @@ export class RecipeDatabase extends BaseDB {
 
   public async getFeedRecipe(id: string): Promise<any> {
     const result = await this.getConnection().raw(`
-      SELECT 
-        r.id, 
-        r.title, 
-        r.description, 
-        r.createAt, 
-        r.creator_user_id AS userId,
-        u.name AS userName
+      SELECT         
+          r.id,         
+          r.title,         
+          r.description,         
+          r.createAt,         
+          r.creator_user_id AS userId,        
+          u.name AS userName
       FROM ${RecipeDatabase.TABLE_NAME} AS r
       JOIN Users AS u
       ON u.id = r.creator_user_id
       JOIN Followers AS f
-      ON f.idFollower = ${id}
+      ON f.idFollower = r.creator_user_id
+      WHERE  f.idUser = "${id}"
     `)
 
     await BaseDB.destroyConnection()
