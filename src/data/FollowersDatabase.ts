@@ -25,11 +25,13 @@ export class FollowersDatabase extends BaseDB {
       }
   }
 
-  public async unfollow(id: string): Promise<void> {
+  public async unfollow(idUser: string, idFollower: string): Promise<void> {
     try {
+      //ADICIONEI A VERIFICAÇÃO COM O ID DO TOKEN 
+      //E O SQL DAVA ERRO PQ NÃO TAVA ENTRE ASPAS
       await this.getConnection().raw(`
         DELETE FROM ${FollowersDatabase.TABLE_NAME} 
-        WHERE idFollower = ${id};
+        WHERE idUser = "${idUser}" AND idFollower = "${idFollower}";
       `)
       
       await BaseDB.destroyConnection()

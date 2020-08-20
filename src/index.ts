@@ -8,6 +8,8 @@ import getUser from "./endpoints/GetUser";
 import createRecipe from "./endpoints/CreateRecipe";
 import getRecipe from "./endpoints/GetRecipe";
 import follow from "./endpoints/Follow";
+import unFollow from "./endpoints/Unfollow";
+import getFeed from "./endpoints/GetFeed";
 
 dotenv.config();
 
@@ -28,6 +30,8 @@ app.post('/signup', signUp);
 app.post('/signin', signIn);
 app.get('/user/profile', getProfile);
 app.post('/user/follow', follow);
+app.post('/user/unfollow', unFollow);
+app.get('/user/feed', getFeed)
 app.get('/user/:id', getUser);
 app.post('/recipe', createRecipe);
 app.get('/recipe/:id', getRecipe);
