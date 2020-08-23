@@ -7,14 +7,16 @@ export class UserDatabase extends BaseDB {
     id: string,
     email: string,
     name: string,
-    password: string
+    password: string,
+    role?: string
   ): Promise<void> {
     await this.getConnection()
       .insert({
         id,
         email,
         name,
-        password
+        password,
+        role
       })
     .into(UserDatabase.TABLE_NAME);
     

@@ -18,7 +18,7 @@ export default async function signUp (req: Request, res: Response) {
         const hash = new HashManager();
         const isPassword = await hash.hash(req.body.password);
 
-        await user.createUser(id, req.body.email, req.body.name, isPassword)
+        await user.createUser(id, req.body.email, req.body.name, isPassword, req.body.role)
 
         res.status(200).send({
             message: "Usuário criado com sucesso."

@@ -1,4 +1,5 @@
 import { BaseDB } from "./BaseDatabase";
+import moment from "moment";
 
 export class RecipeDatabase extends BaseDB {
   private static TABLE_NAME = "Recipe";
@@ -25,7 +26,7 @@ export class RecipeDatabase extends BaseDB {
 
   public async getRecipeById(id: string): Promise<any> {
     const result = await this.getConnection()
-      .select("id", "title", "description", "createAt")
+      .select("*")
       .from(RecipeDatabase.TABLE_NAME)
       .where({ id });
 
@@ -53,4 +54,32 @@ export class RecipeDatabase extends BaseDB {
 
     return result[0];
   }
+
+  public async editRecipeId(
+    id: string,
+    title: string,
+    description: string
+  ): Promise<void> {
+    const date = moment()
+
+    await this.getConnection()
+      .update({
+        title,
+        description,
+        createAt: date.format("YYYY-MM-DD")
+      })
+      .from(RecipeDatabase.TABLE_NAME)
+      .where({ id })
+    
+    await BaseDB.destroyConnection()
+  }
+
+  public async deleteRecipe (id: string): Promise<void> {
+    await this.getConnection()
+      .delete()
+      .from(RecipeDatabase.TABLE_NAME)
+      .where({ id })
+      
+    await BaseDB.destroyConnection()    
+  }  
 }
