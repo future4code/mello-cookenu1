@@ -8,7 +8,12 @@ export default async function getRecipe(req: Request, res: Response) {
         }
         const recipe = new RecipeDatabase;
         const result = await recipe.getRecipeById(req.params.id)
-        res.status(200).send(result)
+        res.status(200).send({
+            id: result.id,
+            title: result.title,
+            description: result.description,
+            createAt: result.createAt
+        })
     } catch (error) {
         res.status(400).send({
             message: error.message

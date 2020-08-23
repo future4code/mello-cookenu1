@@ -12,20 +12,32 @@ export default async function signIn (req: Request, res: Response) {
             throw new Error ("Invalid Password");
         }
 
-        const hash = new HashManager;
-        const resultPassword = hash.compare(req.body.password, process.env.JWT_KEY as string)
+        const userData = {
+            email: req.body.email,
+            password: req.body.password
+        };
 
-        if(!resultPassword){
-            throw new Error ("Invalid Password");
+        const userDataBase = new UserDatabase()
+        const user = await userDataBase.getUserByEmail(userData.email)
+
+        const hashManager = new HashManager()
+        const compareResult = await hashManager.compare(
+          userData.password,
+          user[0].password
+        )
+
+        if (!compareResult) {
+          throw new Error ("Invalid password")
         }
 
-        const user = new UserDatabase;
-        const authenticator = new Authenticator;
-        const result = await user.getUserByEmail(req.body.email);
-        const token = authenticator.generateToken(result[0].id)
+        const authenticator = new Authenticator()
+        const token = authenticator.generateToken({
+          id: user[0].id,
+          role: user[0].role
+        })
         
         res.status(200).send({
-            "token": token
+          token
         })
 
     } catch (error) {

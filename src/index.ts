@@ -8,8 +8,10 @@ import getUser from "./endpoints/GetUser";
 import createRecipe from "./endpoints/CreateRecipe";
 import getRecipe from "./endpoints/GetRecipe";
 import follow from "./endpoints/Follow";
-import unFollow from "./endpoints/Unfollow";
+import unFollow from "./endpoints/UnFollow";
 import getFeed from "./endpoints/GetFeed";
+import deleteRecipe from "./endpoints/DeleteRecipe";
+import editRecipe from "./endpoints/EditRecipe";
 
 dotenv.config();
 
@@ -35,3 +37,5 @@ app.get('/user/feed', getFeed)
 app.get('/user/:id', getUser);
 app.post('/recipe', createRecipe);
 app.get('/recipe/:id', getRecipe);
+app.delete('/recipe/delete/:id', deleteRecipe);
+app.put('/edit/recipe/:id', editRecipe);
